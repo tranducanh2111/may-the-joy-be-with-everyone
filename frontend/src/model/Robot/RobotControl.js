@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowUp, RotateCcw, RotateCw } from 'lucide-react';
-import Button from '../../components/Button';
-import { moveForward, rotate } from './RobotService';
-import RobotGrid from './RobotGrid';
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, RotateCcw, RotateCw } from 'lucide-react';
+import Button from 'components/Button';
+import { moveForward, rotate } from 'model/Robot/RobotService';
+import RobotGrid from 'model/Robot/RobotGrid';
+
+const directions = ['North', 'East', 'South', 'West']; // Direction names
 
 const RobotControl = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -16,6 +18,21 @@ const RobotControl = () => {
         setDirection(prev => rotate(prev, clockwise));
     };
 
+    const renderArrow = () => {
+        switch (direction) {
+            case 0: // North
+                return <ArrowUp className="w-6 h-6" />;
+            case 1: // East
+                return <ArrowRight className="w-6 h-6" />;
+            case 2: // South
+                return <ArrowDown className="w-6 h-6" />;
+            case 3: // West
+                return <ArrowLeft className="w-6 h-6" />;
+            default:
+                return null;
+        }
+    };
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <div className="p-6 bg-white shadow-lg rounded-lg">
@@ -24,25 +41,19 @@ const RobotControl = () => {
                 </h1>
                 <RobotGrid position={position} direction={direction} />
                 <div className="flex justify-center space-x-2 mb-4">
-                    <Button
-                        onClick={() => handleRotate(false)}
-                        variant="outline"
-                    >
+                    <Button onClick={() => handleRotate(false)} variant="outline">
                         <RotateCcw className="w-6 h-6" />
                     </Button>
                     <Button onClick={handleMoveForward} variant="outline">
-                        <ArrowUp className="w-6 h-6" />
+                        {renderArrow()}
                     </Button>
-                    <Button
-                        onClick={() => handleRotate(true)}
-                        variant="outline"
-                    >
+                    <Button onClick={() => handleRotate(true)} variant="outline">
                         <RotateCw className="w-6 h-6" />
                     </Button>
                 </div>
                 <p className="text-center">
                     Position: ({position.x}, {position.y}) | Direction:{' '}
-                    {['N', 'E', 'S', 'W'][direction]}
+                    {directions[direction]}
                 </p>
             </div>
         </div>
