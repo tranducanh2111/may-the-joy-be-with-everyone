@@ -18,3 +18,6 @@ npm install -g shadcn-ui@latest
 npm install --save-dev prettier
 <!-- To run Prettier -->
 npm run format
+
+<!-- Access this project via this URL -->
+https://may-the-joy-be-with-everyone.vercel.app/
