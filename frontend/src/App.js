@@ -1,5 +1,5 @@
 import './App.css';
-import RobotControl from './model/Robot/RobotControl';
+import RobotControl from './components/RobotControl';
 
 function App() {
     return (
